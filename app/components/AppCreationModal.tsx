@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import React from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useToast } from '../components/ui/use-toast'
 import { Button, ButtonProps } from '../components/ui/button'
 import { AppDetails, CreationType, DEFAULT_APP_TYPE } from '../types/index'
@@ -54,12 +55,13 @@ export default function AppCreationModal({
           <div className="mb-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative">
             <p>You need to sign up or log in to create an app.</p>
             <Button 
-              onClick={() => onSignUpClick()} 
-              className="mt-2 w-full"
-              variant="outline"
-            >
-              Sign Up / Log In
-            </Button>
+              {...{ 
+                onClick: onSignUpClick, 
+                className: "mt-2 w-full", 
+                variant: "outline", 
+                children: "Sign Up / Log In" 
+              } as ButtonProps}
+            />
           </div>
         )}
 
@@ -80,17 +82,19 @@ export default function AppCreationModal({
 
         <div className="flex justify-end space-x-2">
           <Button 
-            onClick={() => onClose()} 
-            variant="outline"
-          >
-            Cancel
-          </Button>
+            {...{ 
+              onClick: onClose, 
+              variant: "outline", 
+              children: "Cancel" 
+            } as ButtonProps}
+          />
           <Button 
-            onClick={() => handleSubmit()} 
-            disabled={!isLoggedIn || !appName}
-          >
-            Create App
-          </Button>
+            {...{ 
+              onClick: handleSubmit, 
+              disabled: !isLoggedIn || !appName,
+              children: "Create App" 
+            } as ButtonProps}
+          />
         </div>
       </div>
     </div>

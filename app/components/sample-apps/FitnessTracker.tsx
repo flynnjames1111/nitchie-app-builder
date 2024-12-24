@@ -14,8 +14,7 @@ export default function FitnessTracker() {
           <span className="text-sm font-medium">7,500 / 10,000</span>
         </div>
         <Progress 
-          value={workoutProgress} 
-          className="w-full h-2 bg-gray-200"
+          {...{ value: workoutProgress, className: "w-full h-2 bg-gray-200" } as ProgressProps}
         />
       </div>
       <div>
@@ -24,8 +23,7 @@ export default function FitnessTracker() {
           <span className="text-sm font-medium">320 kcal</span>
         </div>
         <Progress 
-          value={nutritionProgress} 
-          className="w-full h-2 bg-gray-200"
+          {...{ value: nutritionProgress, className: "w-full h-2 bg-gray-200" } as ProgressProps}
         />
       </div>
       <div>
@@ -34,8 +32,7 @@ export default function FitnessTracker() {
           <span className="text-sm font-medium">45 min</span>
         </div>
         <Progress 
-          value={sleepProgress} 
-          className="w-full h-2 bg-gray-200"
+          {...{ value: sleepProgress, className: "w-full h-2 bg-gray-200" } as ProgressProps}
         />
       </div>
       <div className="flex justify-between text-sm">
