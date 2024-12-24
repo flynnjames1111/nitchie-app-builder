@@ -1,14 +1,13 @@
-import React from 'react'
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { SidebarProvider } from '@/components/ui/sidebar'
-import { ToastProvider } from '@/components/ui/use-toast'
+import Providers from './providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
-  title: 'NitchieApps - No-Code App Builder',
-  description: 'Build your app without writing a single line of code',
+export const metadata: Metadata = {
+  title: 'Nitchie App Builder',
+  description: 'Build apps faster with Nitchie',
 }
 
 export default function RootLayout({
@@ -17,13 +16,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
-      <body>
-        <ToastProvider>
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
-        </ToastProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   )
