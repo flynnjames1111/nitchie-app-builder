@@ -1,6 +1,6 @@
 [build]
 command = "npm run build"
-pages_build_output_dir = ".next"
+output_directory = ".next"
 
 [vars]
 ENVIRONMENT = "production"
@@ -13,7 +13,12 @@ database_id = "ed555740-5d8e-479f-82c7-a4cdd44f8e04" # Replace with the Database
 
 [pages]
 project_name = "nitchie-app-builder"
+production_branch = "master"
 compatibility_flags = ["nodejs_compat"]
+
+[build.environment]
+NODE_VERSION = "20"
+NPM_VERSION = "10"
 
 [dev]
 port = 3000
