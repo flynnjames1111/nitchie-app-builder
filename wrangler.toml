@@ -13,7 +13,8 @@ database_id = "ed555740-5d8e-479f-82c7-a4cdd44f8e04" # Replace with the Database
 
 [pages]
 project_name = "nitchie-app-builder"
-production_branch = "master"
+production_branch = "main"
+pages_build_output_dir = ".next"
 compatibility_flags = ["nodejs_compat"]
 
 [build.environment]
