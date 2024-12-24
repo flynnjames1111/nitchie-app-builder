@@ -1,0 +1,11 @@
+framework: next.js
+buildCommand: npm run build
+outputDirectory: .next
+nodeVersion: "18"
+
+# Cloudflare Pages specific configurations
+pages:
+  - name: nitchie-app-builder
+    buildCommand: npm run build
+    outputDirectory: .next
+    environment: production
