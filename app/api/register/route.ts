@@ -4,9 +4,12 @@ import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
+// Admin secret key for special registration
+const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY || 'default_admin_key'
+
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json()
+    const { name, email, password, adminKey } = await request.json()
 
     // Validate input
     if (!name || !email || !password) {
@@ -26,6 +29,12 @@ export async function POST(request: Request) {
       }, { status: 409 })
     }
 
+    // Determine user role
+    let role = 'user'
+    if (adminKey && adminKey === ADMIN_SECRET_KEY) {
+      role = 'admin'
+    }
+
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -34,7 +43,8 @@ export async function POST(request: Request) {
       data: {
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        role
       }
     })
 

@@ -23,11 +23,11 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.email || !credentials.password) {
           return null
         }
 
@@ -51,7 +51,8 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.name
+          name: user.name,
+          role: user.role
         }
       }
     })
@@ -61,18 +62,38 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.id as string
-      return session
-    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id
+        token.role = user.role
       }
       return token
+    },
+    async session({ session, token }) {
+      session.user.id = token.id as string
+      if (session.user) {
+        session.user.role = token.role
+      }
+      return session
+    },
+    async redirect({ url, baseUrl }) {
+      // Redirect to dashboard if admin, otherwise to default URL
+      return url.startsWith(baseUrl) ? url : baseUrl
     }
   },
   pages: {
     signIn: '/login'
+  }
+}
+
+// Extend default session types to include role
+declare module "next-auth" {
+  interface User {
+    role?: string
+  }
+  interface Session {
+    user: {
+      role?: string
+    } & DefaultSession["user"]
   }
 }
